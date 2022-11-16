@@ -87,12 +87,15 @@
         width: 100%;
     height: 110px;
     background: aquamarine;
+    font-size: 80px;
+    text-align: end;
       }
     </style>
     <script>
         var calculation=[],result=0;
       var btn = document.querySelectorAll(".num");
       var input = document.getElementById("cal");
+      var re = document.getElementById("res");
       document.getElementById("clear").addEventListener("click", clear);
       document.getElementById("backspace").addEventListener("click", del);
       document.getElementById("equal").addEventListener("click", res);
@@ -118,11 +121,14 @@
         result=0;
       }
       function clicked(e) {
-        var l=e.target.id
-       console.log(l);
-        calculation.push(parseInt(e.target.innerHTML))
+        if(e.target.innerHTML==("+"||"-"||"*"||"/"||"%"))
+        {
+          calculation.push(e.target.innerHTML)
+        }
+        else{
+          calculation.push(e.target.innerHTML)
+        }
         input.innerHTML=input.innerHTML+e.target.innerHTML
-        console.log(calculation);
       }
       function res(){
         var temp=""
@@ -130,12 +136,13 @@
         {
           temp=temp+calculation[i]
         }
-        result=eval(temp);
-        if(result==Number){
-          input.value=result;
+        result=eval(`${input.innerHTML}`);
+        console.log(result);
+        if(isNaN(result)){
+          re.innerHTML="error"
         }
-        else{
-          input.value="error"
+         else{
+          re.innerHTML=result;
         }
       }
     </script>
